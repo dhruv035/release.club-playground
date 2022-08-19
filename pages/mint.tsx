@@ -124,6 +124,7 @@ const Create: NextPage = () => {
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       abc = setInterval(()=>checker(response.data.request_id),5000);
+      openInNewTab(response.data.transaction_url);
     })
   };
   return (
