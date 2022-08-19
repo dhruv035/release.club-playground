@@ -45,6 +45,31 @@ const Create: NextPage = () => {
       if(contract[0].status==="success"){
       clearInterval(abc);
       console.log("Cleared");
+      toast.success('Contract Created Successfully', {
+        duration: 4000,
+        position: 'top-left',
+
+        // Custom Icon
+        icon: '👏',
+        // Change colors of success/error/loading icon
+        iconTheme: {
+          primary: '#0a0',
+          secondary: '#fff',
+        },
+        // styling
+        style: {
+          border: '1px solid #FFFDF8',
+          padding: '8px 12px',
+          color: '#FFFDF8',
+          backgroundColor: '#1E1E1E'
+          // minWidth: '300px'
+        },
+        // Aria
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
       }
     })
   }
