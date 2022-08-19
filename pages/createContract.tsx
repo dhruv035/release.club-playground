@@ -89,12 +89,14 @@ const Create: NextPage = () => {
       data : dat
     };
     
-    /*axios(config)
+    axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      abc = setInterval(()=>checker(response.data.request_id),5000);
+      if(response.data.transaction_url){
+        abc = setInterval(()=>checker(response.data.request_id),5000);
       openInNewTab(response.data.transaction_url);
-    })*/
+    }
+    })
   };
   return (
     <div className='max-w-7xl mx-auto'>
