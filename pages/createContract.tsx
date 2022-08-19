@@ -26,7 +26,7 @@ const Create: NextPage = () => {
     console.log("AAAAA");
     var dat ={
       "key": api,
-      "chain_id": "4",
+      "chain_id": "97",
       "url":"https://thentic.tech/api/contracts",
       "method":"get"
     };
@@ -52,7 +52,7 @@ const Create: NextPage = () => {
     console.log(data)
     var dat ={
       "key": api,
-      "chain_id": "4",
+      "chain_id": "97",
       "name": data.name,
       "short_name": data.short_name,
       "url":"https://thentic.tech/api/nfts/contract",
