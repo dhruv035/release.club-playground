@@ -76,14 +76,12 @@ const Create: NextPage = () => {
   }
   const onSubmit = data => {
     console.log(data)
-    var dat ={
-      "key": api,
-      "chain_id": "97",
-      "name": data.name,
-      "short_name": data.short_name,
-      "url":"https://thentic.tech/api/nfts/contract",
-      "method":"post"
-    };
+    var dat =data;
+    dat.chain_id="97";
+    dat.url="https://thentic.tech/api/nfts/contract";
+    dat.method="post";
+    if(!dat.key)
+    dat.key=api;
     console.log('dat :>> ', dat);
     var config = {
       method: 'post',
@@ -91,12 +89,12 @@ const Create: NextPage = () => {
       data : dat
     };
     
-    axios(config)
+    /*axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       abc = setInterval(()=>checker(response.data.request_id),5000);
       openInNewTab(response.data.transaction_url);
-    })
+    })*/
   };
   return (
     <div className='max-w-7xl mx-auto'>
@@ -105,6 +103,19 @@ const Create: NextPage = () => {
         <h1 className='text-4xl text-main-gray font-tr mt-32 my-8 w-full text-center'>
           Create a new NFT contract
         </h1>
+        <div className='w-full mt-8'>
+          <label className='my-2 text-main-gray text-base'>
+            API
+          </label>
+          <p className='text-main-gray-dark text-sm mt-1'>
+            Use custom Thentic API key
+          </p>
+          <input
+            type='text'
+            className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
+            {...register("key")}
+          />
+        </div>
         <div className='w-full mt-8'>
           <label className='my-2 text-main-gray text-base'>
             Name*

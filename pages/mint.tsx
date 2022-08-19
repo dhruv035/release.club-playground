@@ -11,7 +11,7 @@ const Create: NextPage = () => {
     name: string;
   }
   let abc;
-  const api = "plPhDK6AiKeqXxTgbmFOVkKEfmlnDaGS"
+  const [api,setAPI] = useState("plPhDK6AiKeqXxTgbmFOVkKEfmlnDaGS")
   const { register, handleSubmit } = useForm();
   const [contracts, setContracts] = useState([]);
   const [iFrame, setIFrame] = useState("");
@@ -28,6 +28,7 @@ const Create: NextPage = () => {
   ]
   
   useEffect(()=>{
+    console.log('Current api :>> ', api);
     var dat ={
       "key": api,
       "chain_id": "97",
@@ -43,7 +44,8 @@ const Create: NextPage = () => {
     
     axios(config).then(function(response){
       console.log('response.data :>> ', response.data);
-      let temp = response.data.contracts.filter(contract=>contract.contract!=null)
+      if(response.data.contracts){
+        let temp = response.data.contracts.filter(contract=>contract.contract!=null)
       let addresses = temp.map((temp)=>
         {
           return{
@@ -53,8 +55,9 @@ const Create: NextPage = () => {
         }
         )
       setContracts(addresses);
+    }
     });
-  },[])
+  },[api])
   const checker =(id)=> {
     console.log("AAAAA");
     var dat ={
@@ -106,6 +109,9 @@ const Create: NextPage = () => {
       }
     })
   }
+  async function changeAPI(data){
+   await setAPI(data.key);
+  }
   const onSubmit = data => {
     console.log(data)
     var dat =data;
@@ -134,6 +140,22 @@ const Create: NextPage = () => {
         <h1 className='text-4xl text-main-gray font-tr mt-32 my-8 w-full text-center'>
           Create a new NFT contract
         </h1>
+        <div className='w-full mt-8'>
+          <label className='my-2 text-main-gray text-base'>
+            API
+          </label>
+          <p className='text-main-gray-dark text-sm mt-1'>
+            Use custom Thentic API key
+          </p>
+          <input
+            type='text'
+            className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
+            {...register("key")}
+          />
+          <button className='text-lg text-main-black mt-20 bg-cta font-tr px-2 py-1 hover:bg-main-gray' onClick={handleSubmit(changeAPI)}>
+            Change Key
+          </button>
+        </div>
         <div className='w-full mt-8'>
         <select className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0' {...register("contract",{required:true})}>
         <option className=' bg-black text-main-gray-dark' value="none" selected disabled hidden>Select an Option</option>
