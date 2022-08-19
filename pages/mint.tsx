@@ -60,7 +60,7 @@ const Create: NextPage = () => {
     var dat ={
       "key": api,
       "chain_id": "97",
-      "url":"https://thentic.tech/api/contracts",
+      "url":"https://thentic.tech/api/nfts",
       "method":"get"
     };
     console.log('dat :>> ', dat);
@@ -71,14 +71,14 @@ const Create: NextPage = () => {
     };
     
     axios(config).then(function(response){
-      var contract = response.data.contracts.filter(contract=>contract.request_id===id)
-      console.log('contract :>> ', contract);
+      var nft = response.data.nfts.filter(nft=>nft.request_id===id)
+      console.log('nft :>> ', nft);
       console.log('response :>> ', response);
-      console.log('contract[0].status :>> ', contract[0].status);
-      if(contract[0].status==="success"){
+      console.log('contract[0].status :>> ', nft[0].status);
+      if(nft[0].status==="success"){
       clearInterval(abc);
       console.log("Cleared");
-      toast.success('Contract Created Successfully', {
+      toast.success('NFT Created Successfully', {
         duration: 4000,
         position: 'top-left',
 
@@ -108,15 +108,12 @@ const Create: NextPage = () => {
   }
   const onSubmit = data => {
     console.log(data)
-    var dat ={
-      "key": api,
-      "chain_id": "97",
-      "name": data.name,
-      "short_name": data.short_name,
-      "url":"https://thentic.tech/api/nfts/contract",
-      "method":"post"
-    };
-    console.log('dat :>> ', dat);
+    var dat =data;
+    dat.method="post"
+    data.key=api;
+    dat.url="https://thentic.tech/api/nfts/mint";
+    dat.chain_id="97"
+    console.log('datAA :>> ', dat);
     var config = {
       method: 'post',
       url: 'https://release-club-playground.vercel.app/api/myapi',
@@ -137,19 +134,8 @@ const Create: NextPage = () => {
           Create a new NFT contract
         </h1>
         <div className='w-full mt-8'>
-          <label className='my-2 text-main-gray text-base'>
-            Name*
-          </label>
-          <p className='text-main-gray-dark text-sm mt-1'>
-            The name of your club will be visible to
-            everyone.
-          </p>
-          <input
-            type='text'
-            className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
-            {...register("name")}
-          />
-          <select className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'>
+        <select className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0' {...register("contract",{required:true})}>
+        <option className=' bg-black text-main-gray-dark' value="none" selected disabled hidden>Select an Option</option>
           {
             contracts.map(({ label, value },index) => (
             <option className=' bg-black text-main-gray-dark'
@@ -162,17 +148,43 @@ const Create: NextPage = () => {
         </div>
         <div className='w-full mt-8'>
           <label className='my-2 text-main-gray text-base'>
-            Short Name*
+            NFT ID*
           </label>
           <p className='text-main-gray-dark text-sm mt-1'>
-            The Symbol of your club NFT.
+            The ID of your NFT.
+          </p>
+          <input
+            type='number'
+            className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
+            {...register("nft_id")}
+          />
+        </div>
+        <div className='w-full mt-8'>
+          <label className='my-2 text-main-gray text-base'>
+            NFT DATA
+          </label>
+          <p className='text-main-gray-dark text-sm mt-1'>
+            The Data of your NFT.
           </p>
           <input
             type='text'
             className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
-            {...register("short_name")}
+            {...register("nft_data")}
+          />
+        </div><div className='w-full mt-8'>
+          <label className='my-2 text-main-gray text-base'>
+           NFT Owner
+          </label>
+          <p className='text-main-gray-dark text-sm mt-1'>
+            The Owner of your NFT.
+          </p>
+          <input
+            type='text'
+            className='w-full bg-main-black border-0 border-b-2 border-cta text-main-gray-dark px-0'
+            {...register("to")}
           />
         </div>
+        
         <button
           className='text-lg text-main-black mt-20 bg-cta font-tr px-2 py-1 hover:bg-main-gray'
           onClick={handleSubmit(onSubmit)}
