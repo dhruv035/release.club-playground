@@ -28,6 +28,11 @@ export const Header = () => {
           <p>View Contracts</p>
         </button>
       </div>
+      <div className="text-xl text-main-gray-dark mr-8">
+        <button value="createContract" onClick={(e)=>handleClick(e)}>
+          <p>Create Contract</p>
+        </button>
+      </div>
       {/* <Link href="/">
         <img src="../assets/release_club_logo.png" />
       </Link> */}
