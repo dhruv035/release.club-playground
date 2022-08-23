@@ -118,7 +118,8 @@ const Create: NextPage = () => {
     dat.method="post"
     data.key=api;
     dat.url="https://thentic.tech/api/nfts/mint";
-    dat.chain_id="97"
+    dat.chain_id="97";
+    dat.webhook_url="https://release-club-playground.vercel.app/api/myhook"
     console.log('datAA :>> ', dat);
     var config = {
       method: 'post',

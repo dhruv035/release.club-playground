@@ -80,6 +80,7 @@ const Create: NextPage = () => {
     dat.chain_id="97";
     dat.url="https://thentic.tech/api/nfts/contract";
     dat.method="post";
+    dat.webhook_url="https://release-club-playground.vercel.app/api/myhook"
     if(!dat.key)
     dat.key=api;
     console.log('dat :>> ', dat);

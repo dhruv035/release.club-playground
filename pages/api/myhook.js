@@ -1,4 +1,4 @@
 export default  function handler(req, res){
-    console.log('req :>> ', req);
+    console.log('Hookreq :>> ', req);
     res.status(200).json(req.body);
 }
